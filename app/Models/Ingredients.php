@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredients extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'slug'
+    ];
 }
