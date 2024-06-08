@@ -16,15 +16,14 @@ class MealSeeder extends Seeder
     public function run()
     {
         $fakeData = PhpFaker::create();
-
-        foreach(range(1, 20) as $i){
+        
+        // Loop to insert random data
+        foreach (range(1, 20) as $i) {
             DB::table('meal')->insert([
                 'name' => $fakeData->sentence(2),
                 'category_id' => $fakeData->numberBetween(1, 20)
             ]);
         }
     }
-
-  
 
 }
