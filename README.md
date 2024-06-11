@@ -13,6 +13,34 @@ PHP Laravel app for displaying dishes of the world
 
 ## About 
 
+API Testing done with Postman tool.
+
+Project starting: 
+    ### cd /project/file
+    ### php artisan serve
+
+API endpoint for getting all meals:
+    ### http://127.0.0.1:8000/api/meals?lang=hr (http://127.0.0.1:8000 server port 8000 depends on a port your server is listening to)
+
+Models Folder:
+    ### app/Models
+
+Migrations Folder:
+    ### database/migrations
+
+To apply migrations into database:
+    ### php artisan make:migration [migration_name]
+
+Database Seeder Folder:
+    ### /database/seeders
+
+
+To seed data into database:
+    ### cd /project/file
+    ### php artisan db:seed
+
+Controller Folder:
+    ### app/Http/Controllers
 
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
