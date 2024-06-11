@@ -11,43 +11,42 @@ PHP Laravel app for displaying dishes of the world
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About 
 
-API Testing done with Postman tool.
+# About 
 
-Project starting: 
-    ## cd /project/file
-    ## php artisan serve
+This repository contains API Testing done with Postman tool.
 
-API endpoint for getting all meals:
-    ## http://127.0.0.1:8000/api/meals?lang=hr (http://127.0.0.1:8000 server port 8000 depends on a port your server is listening to)
+## Getting Started
 
-Models Folder:
-    ## app/Models
+To start the project, follow these steps:
 
-Migrations Folder:
-    ## database/migrations
+1. Navigate to the project directory:
+    ```bash
+    cd /project/file
+    ```
 
-To apply migrations into database:
-    ## php artisan make:migration [migration_name]
+2. Run the following command to start the server:
+    ```bash
+    php artisan serve
+    ```
 
-Database Seeder Folder:
-    ## /database/seeders
+## API Endpoint
 
+You can access the API endpoint for getting all meals at:
 
-To seed data into database:
-    ## cd /project/file
-    ## php artisan db:seed
+```http
+http://127.0.0.1:8000/api/meals?lang=hr
 
-Controller Folder:
-    ## app/Http/Controllers
+# Project Structure
 
+- **Models Folder:** `app/Models`
+- **Migrations Folder:** `database/migrations`
+- **Database Seeder Folder:** `/database/seeders`
+- **Controller Folder:** `app/Http/Controllers`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Applying Migrations
 
+To apply migrations to your database, use the following command:
+
+```bash
+php artisan make:migration [migration_name]
