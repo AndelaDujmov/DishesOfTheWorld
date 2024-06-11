@@ -26,7 +26,9 @@ class CategoryTagIngredientSeeder extends Seeder
         foreach(range(1, $len) as $i){
             DB::table($table)->insert([
                 'title' => $fakeData->word,
-                'slug' => $fakeData->slug
+                'slug' => $fakeData->slug,
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
     }

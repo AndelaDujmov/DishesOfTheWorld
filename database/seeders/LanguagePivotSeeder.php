@@ -17,7 +17,7 @@ class LanguagePivotSeeder extends Seeder
     {
         $fakeData = PhpFaker::create();
 
-        $languages = DB::table('languages')->pluck('id')->toArray();
+        $languages = DB::table('languages')->get()->toArray();
         $ingredients = DB::table('ingredients')->pluck('id')->toArray();
         $tags = DB::table('tags')->pluck('id')->toArray();
         $categories = DB::table('category')->pluck('id')->toArray();
@@ -28,16 +28,23 @@ class LanguagePivotSeeder extends Seeder
 
             DB::table('languages_category')->insert([
                 'language_id' => $languageId,
-                'category' => $categoryId
+                'category' => $categoryId,
+                'title' =>"",
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
         
 
-        foreach ($languages as $languageId) {
+        foreach ($languages as $language) {
+            $languageCode = $language->name;
             foreach ($tags as $tagId) {
                 DB::table('languages_tag')->insert([
                     'language_id' => $fakeData->numberBetween(min($languages), max($languages)),
-                    'tag_id' => $fakeData->numberBetween(min($tags), max($tags))
+                    'tag_id' => $fakeData->numberBetween(min($tags), max($tags)),
+                    'title' => "",
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ]);
             }
         }
@@ -47,7 +54,10 @@ class LanguagePivotSeeder extends Seeder
             foreach ($ingredients as $ingredientId) {
                 DB::table('languages_ingredient')->insert([
                     'language_id' => $fakeData->numberBetween(min($languages), max($languages)),
-                    'ingredient_id' => $fakeData->numberBetween(min($ingredients), max($ingredients))
+                    'ingredient_id' => $fakeData->numberBetween(min($ingredients), max($ingredients)), 
+                    'title' =>"",
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ]);
             }
         }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Languages;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as PhpFaker;
@@ -18,13 +19,13 @@ class MealPivotSeeder extends Seeder
         $ingredients = DB::table('ingredients')->pluck('id')->toArray();
         $tags = DB::table('tags')->pluck('id')->toArray();
         $meals = DB::table('meal')->pluck('id')->toArray();
-        $ingredientId = $ingredients[array_rand($ingredients)];
-        $tagId = $tags[array_rand($tags)];
         $fakeData = PhpFaker::create();
+     
 
 
         foreach ($meals as $mealId) {
 
+            
             DB::table('meal_ingredient')->insert([
                 'ingredient_id' => $fakeData->numberBetween(min($ingredients), max($ingredients)),
                 'meal_id' => $fakeData->numberBetween(min($meals), max($meals))
@@ -34,9 +35,10 @@ class MealPivotSeeder extends Seeder
                 'tag_id' => $fakeData->numberBetween(min($tags), max($tags)),
                 'meal_id' => $fakeData->numberBetween(min($meals), max($meals))
             ]);
-        }
 
     
+        }
+
 
         }
     }

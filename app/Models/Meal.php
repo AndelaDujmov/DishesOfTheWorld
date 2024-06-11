@@ -2,15 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContracts;
+use Astrotomic\Translatable\Translatable;
 
-class Meal extends Model
+class Meal extends Model implements TranslatableContracts
 {
-    use HasFactory;
+    use Translatable;
 
     protected $table = 'meal';
-    protected $fillable = [
-        'name'
-    ];
+
+    public $translatedAttributes = ['name', 'description'];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tags::class, 'meal_tag', 'meal_id', 'tag_id');
+    }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredients::class, 'meal_ingredient', 'meal_id', 'ingredient_id');
+    }
+
+    public function languages()
+    {
+        return $this->belongsToMany(MealTranslation::class, 'meal_translations', 'meal_id', 'language_id');
+    }
 }
