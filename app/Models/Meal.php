@@ -12,7 +12,13 @@ class Meal extends Model implements TranslatableContracts
 
     protected $table = 'meal';
 
-    public $translatedAttributes = ['name', 'description'];
+    public $translatedAttributes = [];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'meal', 'id', 'category_id');
+    }
+
 
     public function tags()
     {
