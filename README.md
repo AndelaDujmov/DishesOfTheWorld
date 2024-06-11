@@ -34,8 +34,9 @@ To start the project, follow these steps:
 
 You can access the API endpoint for getting all meals at:
 
-```http
+  ```bash
 http://127.0.0.1:8000/api/meals?lang=hr
+```
 
 # Project Structure
 
