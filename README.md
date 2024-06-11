@@ -14,11 +14,11 @@ PHP Laravel app for displaying dishes of the world
 
 # About 
 
-This repository contains API Testing done with Postman tool.
+This project's API is tested using Postman
 
 ## Getting Started
 
-To start the project, follow these steps:
+To start the server, follow these steps:
 
 1. Navigate to the project directory:
     ```bash
@@ -32,7 +32,7 @@ To start the project, follow these steps:
 
 ## API Endpoint
 
-You can access the API endpoint for getting all meals at:
+To access the API endpoint for getting all meals at:
 
   ```bash
 http://127.0.0.1:8000/api/meals?lang=hr
@@ -51,3 +51,17 @@ To apply migrations to your database, use the following command:
 
 ```bash
 php artisan make:migration [migration_name]
+```
+## Seedng Database
+
+To seed data into your database, follow these steps:
+
+1. Navigate to the project directory:
+ ```bash
+    cd /project/file
+    ```
+2. Run the command that's gonna seed data into database:
+ ```bash
+php artisan db:seed
+```
+
