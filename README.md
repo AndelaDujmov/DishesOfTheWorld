@@ -57,11 +57,12 @@ php artisan make:migration [migration_name]
 To seed data into your database, follow these steps:
 
 1. Navigate to the project directory:
- ```bash
+   ```bash
     cd /project/file
     ```
 2. Run the command that's gonna seed data into database:
- ```bash
-php artisan db:seed
-```
+   ```bash
+    php artisan db:seed
+    ```
+
 
