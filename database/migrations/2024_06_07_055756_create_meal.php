@@ -18,6 +18,7 @@ class CreateMeal extends Migration
             $table->string('name');
             $table->foreignId('category_id')->nullable()->constrained('category');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('meal_tag', function(Blueprint $table) {
