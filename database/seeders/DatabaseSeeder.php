@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategoryTagIngredientSeeder::class,
             MealSeeder::class,
-            LanguagePivotSeeder::class,
             LanguagesSeeder::class,
             MealPivotSeeder::class
         ]);

@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContracts;
 use Astrotomic\Translatable\Translatable;
 
-class Meal extends Model implements TranslatableContracts
+class Meal extends Model /*implements TranslatableContracts*/
 {
-    use Translatable;
+    /*use Translatable;*/
 
     protected $table = 'meal';
 
-    public $translatedAttributes = [];
+    protected $translatedAttributes = ['name', 'description'];
+    protected $fillable = ['name', 'description'];
 
     public function category()
     {
         return $this->belongsTo(Category::class, 'meal', 'id', 'category_id');
     }
-
 
     public function tags()
     {

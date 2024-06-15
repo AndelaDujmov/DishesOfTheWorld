@@ -27,11 +27,6 @@ class CreateMeal extends Migration
             $table->foreignId('meal_id')->constrained('meal')->onDelete('cascade');
         });
 
-        Schema::create('meal_ingredient', function(Blueprint $table) {
-            $table->id();
-            $table->foreignId('ingredient_id')->constrained('ingredients')->onDelete('cascade');
-            $table->foreignId('meal_id')->constrained('meal')->onDelete('cascade');
-        });
     }
 
     /**

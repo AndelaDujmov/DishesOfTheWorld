@@ -23,7 +23,6 @@ class LanguagesSeeder extends Seeder
             foreach ($languages as $code) {
                 DB::table('languages')->insert([
                     'name' => $code,
-                    'active' => false,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);

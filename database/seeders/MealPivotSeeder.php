@@ -26,16 +26,17 @@ class MealPivotSeeder extends Seeder
         foreach ($meals as $mealId) {
 
             
-            DB::table('meal_ingredient')->insert([
-                'ingredient_id' => $fakeData->numberBetween(min($ingredients), max($ingredients)),
-                'meal_id' => $fakeData->numberBetween(min($meals), max($meals))
-            ]);
+           for ($i=0;$i<$fakeData->numberBetween(1, 20); $i++){
+                DB::table('meal_ingredient')->insert([
+                    'ingredient_id' => $fakeData->numberBetween(min($ingredients), max($ingredients)),
+                    'meal_id' => $mealId
+                ]);
 
-            DB::table('meal_tag')->insert([
-                'tag_id' => $fakeData->numberBetween(min($tags), max($tags)),
-                'meal_id' => $fakeData->numberBetween(min($meals), max($meals))
-            ]);
-
+                DB::table('meal_tag')->insert([
+                    'tag_id' => $fakeData->numberBetween(min($tags), max($tags)),
+                    'meal_id' => $mealId
+                ]);
+           }
     
         }
 

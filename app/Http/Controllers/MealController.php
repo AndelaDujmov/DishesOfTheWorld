@@ -6,10 +6,12 @@ use App\Models\Meal;
 use App\Models\MealTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class MealController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
     
         $lang = $request->input('lang');
         
@@ -17,24 +19,11 @@ class MealController extends Controller
             return response()->json(['error' => 'Lang parameter required'], 400);
         }
 
-        $languageId = DB::table('languages')
-                    ->where('name', $lang)
-                    ->value('id');
-
-
         $elementsPerPage = $request->input('per_page');
         $page = $request ->input('page');
         $diffTime = $request->input('diff_time');
         
-
         $query = Meal::query();
-
-        if ($diffTime && is_numeric($diffTime) && $diffTime > 0) {
-            $query->where(function ($query) use ($diffTime) {
-                $query->where('created_at', '>', date('Y-m-d H:i:s', $diffTime))
-                      ->orWhere('updated_at', '>', date('Y-m-d H:i:s', $diffTime));
-            });
-        }
 
         $category = $request->input('category');
 
@@ -48,12 +37,12 @@ class MealController extends Controller
             } else {
                 $tagIds = [];
             }
-
-            $query->whereHas('tags', function ($q) use ($tagIds) {
-                $q->whereIn('meal_tag.tag_id', $tagIds);
-            }, '=', count($tagIds));
-        }
-      
+            if (!empty($tagIds)) {
+                $query->whereHas('tags', function ($q) use ($tagIds) {
+                    $q->whereIn('meal_tag.tag_id', $tagIds);
+                });
+            }
+        }   
 
         $ingredients = $request->query('ingredients');
         if ($ingredients) {
@@ -68,7 +57,7 @@ class MealController extends Controller
 
             $query->whereHas('ingredients', function ($q) use ($ingredientsId) {
                 $q->whereIn('meal_ingredient.ingredient_id', $ingredientsId);
-            }, '=', count($ingredientsId));
+            });
         }
  /*
         $listOfLanguages = $request->query('languages');
@@ -98,17 +87,30 @@ class MealController extends Controller
             }
         }
 
-        if ($request->has('with')) {
-            $with = explode(',', $request->with);
-            $query->with($with);
+        if ($diffTime && is_numeric($diffTime) && $diffTime > 0) {
+            $query->where('created_at', '>=', now()->subSeconds($diffTime))
+                  ->orWhere('updated_at', '>=', now()->subSeconds($diffTime))
+                  ->orWhere('deleted_at', '>=', now()->subSeconds($diffTime));
         }
 
-        $query->with(['translations' => function ($q) use ($languageId) {
-            $q->where('language_id', $languageId);
-        }]);
 
+        $with = $request->input('with', []); 
+        if (!empty($with)) {
+            $relationships = explode(',', $with);
+            $query->with($relationships);
+        }
+       /* $query->with(['translations' => function ($q) use ($languageId) {
+            $q->where('language_id', $languageId);
+        }]);*/
+
+      
+        $with = $request->input('with', []);
+        if (!empty($with)) {
+            $relationships = explode(',', $with);
+            $query->with($relationships);
+        }
         $meal = $query->paginate($elementsPerPage, ['*'], 'page', $page);
-    
+    /*
         foreach ($meal as $meal) {
             $translation = $meal->translations->first();
             if ($translation) {
@@ -116,8 +118,12 @@ class MealController extends Controller
                 $meal->description = $translation->description;
             }
         }
-    
+        */
 
-        return response()->json($meal);
+        $data = [
+            'names' => $meal
+        ];
+
+        return response()->json($data);
     }
 }

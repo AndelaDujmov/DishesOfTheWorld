@@ -21,17 +21,13 @@ class MealTranslationSeeder extends Seeder
         $fakeData = PhpFaker::create();
         $meals = Meal::all();
         $languageIds = DB::table('languages')->pluck('id')->toArray();
-    
-        foreach ($languages as $language) {
-            app()->setLocale($language->name);
-    
-            foreach ($meals as $meal) {
-                $nameTranslation = $meal->translateOrNew($language->locale)->name ?: $fakeData->word();
-    
-                $descriptionTranslation = $meal->translateOrNew($language->locale)->description ?: $fakeData->word();
+
+        foreach ($meals as $meal){
+            foreach($languages as $language){
+                $nameTranslation = $meal->translateOrNew($language->name)->name ?: $fakeData->word();
+                $descriptionTranslation = $meal->translateOrNew($language->name)->description ?: $fakeData->word();
                 $status = $meal->status;
                 $mealId = $meal->id;
-    
 
                 DB::table('meal_translations')->insert([
                     'description' => $descriptionTranslation,
