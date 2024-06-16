@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Languages;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as PhpFaker;

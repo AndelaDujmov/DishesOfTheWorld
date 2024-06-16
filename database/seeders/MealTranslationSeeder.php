@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Languages;
-use App\Models\Meal;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as PhpFaker;
@@ -17,24 +15,20 @@ class MealTranslationSeeder extends Seeder
      */
     public function run()
     {
-        $languages = Languages::all();
+        $languages = DB::table('languages')->pluck('name')->toArray();;
         $fakeData = PhpFaker::create();
-        $meals = Meal::all();
+        $meals =  DB::table('meal')->get();
         $languageIds = DB::table('languages')->pluck('id')->toArray();
-
+      
         foreach ($meals as $meal){
+            var_dump($meal);
             foreach($languages as $language){
-                $nameTranslation = $meal->translateOrNew($language->name)->name ?: $fakeData->word();
-                $descriptionTranslation = $meal->translateOrNew($language->name)->description ?: $fakeData->word();
-                $status = $meal->status;
-                $mealId = $meal->id;
-
                 DB::table('meal_translations')->insert([
-                    'description' => $descriptionTranslation,
-                    'status' => $status,
-                    'name' => $nameTranslation,
+                    'description' => $fakeData->sentence(4),
+                    'status' => $meal->status,
+                    'name' => $fakeData->sentence(2),
                     'language_id' => $fakeData->numberBetween(min($languageIds), max($languageIds)),
-                    'meal_id' => $mealId,
+                    'meal_id' => $meal->id,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);

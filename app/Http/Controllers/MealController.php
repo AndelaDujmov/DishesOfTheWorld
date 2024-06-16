@@ -14,8 +14,12 @@ class MealController extends Controller
     {
     
         $lang = $request->input('lang');
+
+        $languageId = DB::table('languages')->select('id')->where('name', $lang)->first();
+
+        var_dump($languageId->id);
         
-        if (!$lang) {
+        if (!$lang || !$languageId) {
             return response()->json(['error' => 'Lang parameter required'], 400);
         }
 
@@ -59,24 +63,7 @@ class MealController extends Controller
                 $q->whereIn('meal_ingredient.ingredient_id', $ingredientsId);
             });
         }
- /*
-        $listOfLanguages = $request->query('languages');
-        if ($listOfLanguages) {
-           
-            if (is_string($listOfLanguages)) {
-                $languagesId = explode(',', $listOfLanguages);
-            } else if (is_array($listOfLanguages)) {
-                $languagesId = $listOfLanguages;
-            } else {
-                $languagesId = [];
-            }
-
-           
-            $query->whereHas('languages', function ($q) use ($languagesId) {
-                $q->whereIn('meal_.ingredient_id', $languagesId);
-            }, '=', count($ingredientsId));
-        }*/
-
+ 
         if ($category !== null) {
             if ($category === '!NULL') {
                 $query->whereNotNull('category_id');
@@ -92,38 +79,26 @@ class MealController extends Controller
                   ->orWhere('updated_at', '>=', now()->subSeconds($diffTime))
                   ->orWhere('deleted_at', '>=', now()->subSeconds($diffTime));
         }
-
-
-        $with = $request->input('with', []); 
-        if (!empty($with)) {
-            $relationships = explode(',', $with);
-            $query->with($relationships);
-        }
-       /* $query->with(['translations' => function ($q) use ($languageId) {
-            $q->where('language_id', $languageId);
-        }]);*/
-
       
         $with = $request->input('with', []);
         if (!empty($with)) {
             $relationships = explode(',', $with);
             $query->with($relationships);
         }
-        $meal = $query->paginate($elementsPerPage, ['*'], 'page', $page);
-    /*
-        foreach ($meal as $meal) {
-            $translation = $meal->translations->first();
-            if ($translation) {
-                $meal->name = $translation->name;
-                $meal->description = $translation->description;
-            }
-        }
-        */
 
-        $data = [
-            'names' => $meal
-        ];
+        $query->select('meal.id', 'meal.category_id', 'meal.created_at', 'meal.updated_at', 'meal.status', 'meal.deleted_at' ,'meal_translations.name', 'meal_translations.description')
+            ->leftJoin('meal_translations', function ($join) use ($languageId) {
+                $join->on('meal.id', '=', 'meal_translations.meal_id')
+                    ->where('meal_translations.language_id', '=', $languageId->id);
+            });
+       
+        $meals = $query->paginate($elementsPerPage, ['*'], 'page', $page);
 
-        return response()->json($data);
+        $mealsArray = $meals;
+
+        return response()->json([
+            'meals' => $mealsArray
+        ]);
     }
 }
+

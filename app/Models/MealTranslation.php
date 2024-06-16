@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Translatable;
 
 class MealTranslation extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['name', 'description'];
     protected $table = 'meal_translations'; 
 
     public function meal()

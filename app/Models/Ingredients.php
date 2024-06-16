@@ -8,8 +8,6 @@ use Astrotomic\Translatable\Translatable;
 
 class Ingredients extends Model
 {
-    
-
     protected $fillable = [
         'title',
         'slug'

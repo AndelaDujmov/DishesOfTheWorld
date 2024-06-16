@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContracts;
 use Astrotomic\Translatable\Translatable;
 
-class Category extends Model implements TranslatableContracts
+class Category extends Model
 {
-    use Translatable;
     protected $table = 'category';
 
     protected $fillable = [
