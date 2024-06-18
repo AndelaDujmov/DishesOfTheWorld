@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             CategoryTagIngredientSeeder::class,
             MealSeeder::class,
             LanguagesSeeder::class,
-            MealPivotSeeder::class
+            MealPivotSeeder::class,
+            MealTranslationSeeder::class
         ]);
     }
 }

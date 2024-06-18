@@ -87,17 +87,18 @@ class MealController extends Controller
         }
 
         $query->select('meal.id', 'meal.category_id', 'meal.created_at', 'meal.updated_at', 'meal.status', 'meal.deleted_at' ,'meal_translations.name', 'meal_translations.description')
-            ->leftJoin('meal_translations', function ($join) use ($languageId) {
+              ->leftJoin('meal_translations', function ($join) use ($languageId) {
                 $join->on('meal.id', '=', 'meal_translations.meal_id')
                     ->where('meal_translations.language_id', '=', $languageId->id);
             });
        
         $meals = $query->paginate($elementsPerPage, ['*'], 'page', $page);
 
-        $mealsArray = $meals;
-
         return response()->json([
-            'meals' => $mealsArray
+            'status' => 200,
+            'meals' => $meals->items(),
+            'currentPage' => $meals->currentPage(),
+            'lastPage' => $meals->lastPage()
         ]);
     }
 }
