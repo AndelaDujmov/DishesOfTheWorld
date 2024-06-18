@@ -44,6 +44,8 @@ http://127.0.0.1:8000/api/meals?lang=hr
 - **Migrations Folder:** `database/migrations`
 - **Database Seeder Folder:** `/database/seeders`
 - **Controller Folder:** `app/Http/Controllers`
+- **Repository Folder:** `app/Repositories`
+- **Service Folder:** `app/Services`
 
 ## Applying Migrations
 

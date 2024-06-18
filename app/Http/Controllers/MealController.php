@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Meal;
 use App\Repositories\MealRepositoryInterface;
+use App\Services\MealServiceInterface;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
@@ -13,14 +14,11 @@ use Illuminate\Support\Facades\DB;
 class MealController extends Controller
 {
     private MealRepositoryInterface $mealRepository;
+    private MealServiceInterface $mealService;
 
-    public function __construct(MealRepositoryInterface $mealRepo) {
+    public function __construct(MealRepositoryInterface $mealRepo, $mealServ) {
         $this->mealRepository = $mealRepo;
-    }
-
-    public function __destruct()
-    {
-        
+        $this->mealService = $mealServ;
     }
 
     public function index(Request $request)
