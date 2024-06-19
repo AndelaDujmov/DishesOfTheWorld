@@ -56,24 +56,12 @@ class MealRepository implements MealRepositoryInterface
     {
         return $query->select('meal.id', 
                               'meal.category_id', 
-                              'meal.created_at', 
-                              'meal.updated_at', 
                               'meal.status', 
-                              'meal.deleted_at',
                               'meal_translations.name', 
                               'meal_translations.description')
                      ->leftJoin('meal_translations', function ($join) use ($language) { 
                               $join->on('meal.id', '=', 'meal_translations.meal_id')
                      ->where('meal_translations.language_id', '=', $language->id);
-        })
-        ->with(['ingredients' => function ($q){
-            $q->select('ingredients.id', 'ingredients.title');
-        }])
-        ->with(['tags' => function($q){
-            $q->select('tags.id', 'tags.title');
-        }])
-        ->with(['category' => function($q){
-            $q->select('category.id', 'category.title');
-        }]);
+        });
     }
 }   

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ExceptionResourse;
+use App\Http\Resources\MealCollection;
 use App\Services\MealServiceInterface;
 use Exception;
 use Illuminate\Http\Request;
@@ -24,18 +26,9 @@ class MealController extends Controller
 
             $meals = $this->mealService->filterMeals($request);
         
-            return response()->json([
-                'status' => 200,
-                'meals' => $meals->items(),
-                'currentPage' => $meals->currentPage(),
-                'lastPage' => $meals->lastPage()
-            ]);
-            
+            return new MealCollection($meals);
         }catch(Exception $e){
-            return response()->json([
-                'status' => 404,
-                'message' => $e
-            ]);
+            return new ExceptionResourse('The lang field is required.');
         }
     }
 }

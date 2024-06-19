@@ -38,7 +38,7 @@ To access the API endpoint for getting all meals at:
 http://127.0.0.1:8000/api/meals?lang=hr
 ```
 
-# Project Structure
+## Project Structure
 
 - **Models Folder:** `app/Models`
 - **Migrations Folder:** `database/migrations`
