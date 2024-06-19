@@ -46,6 +46,7 @@ http://127.0.0.1:8000/api/meals?lang=hr
 - **Controller Folder:** `app/Http/Controllers`
 - **Repository Folder:** `app/Repositories`
 - **Service Folder:** `app/Services`
+- **Resources Folder:** `app/Http/Resources`
 
 ## Applying Migrations
 
