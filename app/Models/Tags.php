@@ -12,4 +12,9 @@ class Tags extends Model
         'title',
         'slug'
     ];
+    
+    protected $hidden = [
+        'pivot'
+    ];
+   
 }

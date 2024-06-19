@@ -12,4 +12,5 @@ class Languages extends Model
     protected $fillable = [
         'name'
     ];
+    
 }

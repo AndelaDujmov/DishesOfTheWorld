@@ -13,6 +13,9 @@ class Ingredients extends Model
         'slug'
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
    
    
 }
